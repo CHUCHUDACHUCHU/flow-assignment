@@ -27,7 +27,7 @@ app.get('/api/custom/list', async (req, res) => {
     }
 });
 
-app.post('/update/fixed', async (req, res) => {
+app.post('api/update/fixed', async (req, res) => {
     const {id, status} = req.body
     const sql = `UPDATE flow_schema.fixed_extension SET status = ? WHERE id = ?`;
     try {
