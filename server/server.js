@@ -2,10 +2,17 @@ const express = require('express');
 const cors = require("cors");
 const db = require('./config/config.js');
 const app = express();
+const path = require('path')
 
 app.use(cors({origin : 'http://localhost:3000'}));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.get('/api/fixed/list', async (req, res) => {
     try {
