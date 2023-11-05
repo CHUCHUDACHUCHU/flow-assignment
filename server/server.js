@@ -7,7 +7,7 @@ app.use(cors({origin : 'http://localhost:3000'}));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get('/fixed/list', async (req, res) => {
+app.get('/api/fixed/list', async (req, res) => {
     try {
         const [rows, fields] = await db.query("SELECT * FROM flow_schema.fixed_extension");
         res.send(rows);
@@ -17,7 +17,7 @@ app.get('/fixed/list', async (req, res) => {
     }
 });
 
-app.get('/custom/list', async (req, res) => {
+app.get('/api/custom/list', async (req, res) => {
     try {
         const [rows, fields] = await db.query("SELECT * FROM flow_schema.custom_extension");
         res.send(rows);
@@ -39,7 +39,7 @@ app.post('/update/fixed', async (req, res) => {
     }
 })
 
-app.post('/update/custom', async (req, res) => {
+app.post('/api/update/custom', async (req, res) => {
     const {name} = req.body
     console.log(name)
     const sql = 'INSERT INTO flow_schema.custom_extension (name) VALUES (?)';
@@ -52,7 +52,7 @@ app.post('/update/custom', async (req, res) => {
     }
 })
 
-app.post('/delete/custom', async (req,res) => {
+app.post('/api/delete/custom', async (req,res) => {
     const {id} = req.body
     const sql = 'DELETE FROM flow_schema.custom_extension WHERE id = ?'
     try {

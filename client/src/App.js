@@ -14,7 +14,7 @@ function App() {
   // 고정확장자 
   const fetchFixedExtensions = async () => {
     try {
-      const response = await axios.get('/fixed/list');
+      const response = await axios.get('/api/fixed/list');
       setFixedExtensions(response.data);
     } catch (error) {
       console.log('Axios Error : ', error);
@@ -24,7 +24,7 @@ function App() {
   // 커스텀확장자
   const fetchCustonExtensions = async () => {
     try {
-      const response = await axios.get('/custom/list');
+      const response = await axios.get('/api/custom/list');
       setCustomExtensions(response.data);
     } catch (error) {
       console.log('Axios Error : ', error);
@@ -37,7 +37,7 @@ function App() {
       const updatedExtensions = fixedExtensions.map((extension) => extension.id === id ? { ...extension, status: status === 0 ? 1 : 0 } : extension);
       setFixedExtensions(updatedExtensions)
 
-      const response = await axios.post(`/update/fixed`, { id, status })
+      const response = await axios.post(`/api/update/fixed`, { id, status })
       console.log(response)
     } catch (error) {
       console.log('Axios Error : ', error);
@@ -60,7 +60,7 @@ function App() {
         alert('고정확장자는 커스텀으로 추가할 수 없습니다.')
       } else {
         //db 추가 요청
-        const response = await axios.post(`/update/custom`, { name: newExtension })
+        const response = await axios.post(`/api/update/custom`, { name: newExtension })
         //custom/new 확장자 갱신
         const newExtensionObj = { id: response.data, name: newExtension }
         if (newExtension && newExtension.length <= 20) {
@@ -77,7 +77,7 @@ function App() {
   const handleDeleteCustomExtension = async (id) => {
     try {
       //삭제 요청
-      const response = await axios.post(`/delete/custom`, { id });
+      const response = await axios.post(`/api/delete/custom`, { id });
       console.log(response)
 
       //custom확장자 갱신
